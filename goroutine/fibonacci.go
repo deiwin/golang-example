@@ -22,3 +22,22 @@ func FibonacciWithChannel(n int) chan int {
 
 	return c
 }
+
+func FibonacciWithInfiniteChannel() (chan int, chan int) {
+	x, y := 0, 1
+	c, quit := make(chan int), make(chan int)
+
+	go func() {
+		for {
+			x, y = y, x+y
+			select {
+			case _ = <-quit:
+				close(c)
+				return
+			case c <- x:
+			}
+		}
+	}()
+
+	return c, quit
+}

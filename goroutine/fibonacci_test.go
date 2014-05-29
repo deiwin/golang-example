@@ -60,4 +60,25 @@ var _ = Describe("fibonacci func", func() {
 			}
 		})
 	})
+
+	Context("with one fibonacci function with an infinite channel", func() {
+		var fib, quit chan int
+
+		BeforeEach(func() {
+			fib, quit = example.FibonacciWithInfiniteChannel()
+		})
+
+		It("should return fibonacci numbers until stopped ", func() {
+			for _, number := range fibonacci_numbers {
+				Expect(<-fib).To(Equal(number))
+			}
+			_, ok := <-fib
+			Expect(ok).To(BeTrue())
+
+			quit <- 0
+
+			_, ok = <-fib
+			Expect(ok).To(BeFalse())
+		})
+	})
 })
