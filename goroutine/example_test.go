@@ -47,5 +47,19 @@ var _ = Describe("Example", func() {
 				}
 			})
 		})
+
+		Context("with one fibonacci function with a channel", func() {
+			var fib chan int
+
+			BeforeEach(func() {
+				fib = example.FibonacciWithChannel(10)
+			})
+
+			It("should return first 10 fibonacci numbers", func() {
+				for _, number := range fibonacci_numbers {
+					Expect(<-fib).To(Equal(number))
+				}
+			})
+		})
 	})
 })
