@@ -8,21 +8,34 @@ import (
 )
 
 var _ = Describe("Loon", func() {
-	var loon = new(Loon)
 
-	It("should quack", func() {
-		Expect(loon.Quack()).To(Equal("Quuuaack!"))
+	Context("with a loon pointer", func() {
+		var loon = new(Loon)
+
+		It("should quack", func() {
+			Expect(loon.Quack()).To(Equal("Quuuaack!"))
+		})
+
+		It("should swim", func() {
+			loon.Swim()
+
+			Expect(loon.IsSwimming).To(BeTrue())
+		})
+
+		It("should walk", func() {
+			loon.Walk()
+
+			Expect(loon.IsSwimming).To(BeFalse())
+		})
 	})
 
-	It("should swim", func() {
-		loon.Swim()
+	Context("with a loon object", func() {
+		var loon = Loon{false}
 
-		Expect(loon.IsSwimming).To(BeTrue())
-	})
+		It("should NOT swim", func() {
+			loon.SwimWithoutPointer()
 
-	It("should walk", func() {
-		loon.Walk()
-
-		Expect(loon.IsSwimming).To(BeFalse())
+			Expect(loon.IsSwimming).NotTo(BeTrue())
+		})
 	})
 })

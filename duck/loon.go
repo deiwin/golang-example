@@ -12,6 +12,10 @@ func (l *Loon) Swim() {
 	l.IsSwimming = true
 }
 
+func (l Loon) SwimWithoutPointer() {
+	l.IsSwimming = true
+}
+
 func (l *Loon) Walk() {
 	l.IsSwimming = false
 }
