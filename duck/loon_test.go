@@ -38,4 +38,13 @@ var _ = Describe("Loon", func() {
 			Expect(loon.IsSwimming).NotTo(BeTrue())
 		})
 	})
+
+	Context("with a baby loon pointer", func() {
+		var loon = new(BabyLoon)
+
+		It("should quack", func() {
+			Expect(loon.Loon.Quack()).To(Equal("Quuuaack!"))
+			Expect(loon.Quack()).To(Equal("Quuueeck!"))
+		})
+	})
 })
